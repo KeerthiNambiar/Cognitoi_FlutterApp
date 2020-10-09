@@ -1,3 +1,4 @@
+import 'package:cognito/graph.dart';
 import 'package:flutter/material.dart';
 
 class DrawerPage extends StatelessWidget {
@@ -36,7 +37,10 @@ class DrawerPage extends StatelessWidget {
               ListTile(
                 title: Text('Dashboard'),
                 onTap: () {
-                  Navigator.pop(context);
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(builder: (context) => HomePage()),
+                  );
                 },
               ),
               ListTile(

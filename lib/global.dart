@@ -4,3 +4,4 @@ int companyId = -1;
 var groupName = "";
 var companyApikey = "";
 var token = "";
+var user = "";

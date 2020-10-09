@@ -79,6 +79,7 @@ class LoginPageState extends State<LoginPage>
         companyApikey = response.data["companyApikey"];
         token = response.data["token"];
         isLoggedIn = response.data["success"];
+        user = response.data["user"];
         print(response.statusCode);
         print(response.statusMessage);
         print(response.data);
@@ -251,7 +252,8 @@ class LoginPageState extends State<LoginPage>
                                   color: Colors.green[400],
                                   child: Text("SIGN IN"),
                                   onPressed: () => {
-                                    this.handleLogin(context),
+                                    this.handleLogin(
+                                        context), //function for API call
                                     if (isLoggedIn)
                                       {
                                         Navigator.push(

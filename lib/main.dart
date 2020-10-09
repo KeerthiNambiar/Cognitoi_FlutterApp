@@ -1,7 +1,6 @@
 import 'dart:io';
 
 import 'package:flutter/material.dart';
-
 import 'package:cognito/routes.dart';
 
 void main() => runApp(new CognitoApp());
