@@ -1,7 +1,5 @@
-import 'package:cognito/drawer.dart';
 import 'package:flutter/material.dart';
 import 'package:charts_flutter/flutter.dart' as charts;
-import 'package:cognito/drawer.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 class HomePage extends StatefulWidget {
@@ -16,57 +14,97 @@ class _HomePageState extends State<HomePage> {
   List<charts.Series<Pollution, String>> _seriesData;
   List<charts.Series<Task, String>> _seriesPieData;
   List<charts.Series<Sales, int>> _seriesLineData;
+  final blue = charts.MaterialPalette.blue.makeShades(2);
+  final red = charts.MaterialPalette.red.makeShades(2);
+  final green = charts.MaterialPalette.green.makeShades(2);
 
   _generateData() {
     var data1 = [
-      new Pollution(1980, 'USA', 30),
-      new Pollution(1980, 'Asia', 40),
-      new Pollution(1980, 'Europe', 10),
+      new Pollution(
+        2017,
+        'Entity1',
+        300,
+        barColor: charts.ColorUtil.fromDartColor(Color(0xff3366cc)),
+      ),
+      new Pollution(
+        2017,
+        'Entity2',
+        100,
+        barColor: charts.ColorUtil.fromDartColor(Color(0xff3366cc)),
+      ),
+      new Pollution(
+        2017,
+        'Entity3',
+        200,
+        barColor: charts.ColorUtil.fromDartColor(Color(0xff3366cc)),
+      ),
     ];
     var data2 = [
-      new Pollution(1985, 'USA', 100),
-      new Pollution(1980, 'Asia', 150),
-      new Pollution(1985, 'Europe', 80),
+      new Pollution(
+        2017,
+        'Entity1',
+        450,
+        barColor: charts.ColorUtil.fromDartColor(Color(0xff3366cc)),
+      ),
+      new Pollution(
+        2018,
+        'Entity2',
+        80,
+        barColor: charts.ColorUtil.fromDartColor(Color(0xff109618)),
+      ),
+      new Pollution(
+        2017,
+        'Entity3',
+        140,
+        barColor: charts.ColorUtil.fromDartColor(Color(0xff3366cc)),
+      ),
     ];
     var data3 = [
-      new Pollution(1985, 'USA', 200),
-      new Pollution(1980, 'Asia', 300),
-      new Pollution(1985, 'Europe', 180),
+      new Pollution(
+        2017,
+        'Entity1',
+        200,
+        barColor: charts.ColorUtil.fromDartColor(Color(0xff3366cc)),
+      ),
+      new Pollution(
+        2017,
+        'Entity2',
+        82,
+        barColor: charts.ColorUtil.fromDartColor(Color(0xff3366cc)),
+      ),
+      new Pollution(
+        2019,
+        'Entity3',
+        175,
+        barColor: charts.ColorUtil.fromDartColor(Color(0xffff9900)),
+      ),
     ];
 
     var piedata = [
-      new Task('Work', 35.8, Color(0xff3366cc)),
-      new Task('Eat', 8.3, Color(0xff990099)),
-      new Task('Commute', 10.8, Color(0xff109618)),
-      new Task('TV', 15.6, Color(0xfffdbe19)),
-      new Task('Sleep', 19.2, Color(0xffff9900)),
-      new Task('Other', 10.3, Color(0xffdc3912)),
+      new Task('fuel("Gal")', 600, Color(0xff3366cc)),
+      new Task('temperature(DegF)', 109, Color(0xff990099)),
+      new Task('pressure("Psi)', 68, Color(0xff109618)),
+      new Task('humidity(g.kg-1)', 45, Color(0xfffdbe19)),
     ];
 
     var linesalesdata = [
-      new Sales(0, 45),
-      new Sales(1, 56),
+      new Sales(0, 49),
+      new Sales(1, 50),
       new Sales(2, 55),
       new Sales(3, 60),
-      new Sales(4, 61),
-      new Sales(5, 70),
     ];
     var linesalesdata1 = [
       new Sales(0, 35),
       new Sales(1, 46),
       new Sales(2, 45),
       new Sales(3, 50),
-      new Sales(4, 51),
-      new Sales(5, 60),
     ];
 
     var linesalesdata2 = [
-      new Sales(0, 20),
-      new Sales(1, 24),
-      new Sales(2, 25),
-      new Sales(3, 40),
-      new Sales(4, 45),
-      new Sales(5, 60),
+      new Sales(0, 30),
+      new Sales(1, 35),
+      new Sales(2, 40),
+      new Sales(3, 49),
     ];
 
     _seriesData.add(
@@ -75,7 +113,7 @@ class _HomePageState extends State<HomePage> {
         measureFn: (Pollution pollution, _) => pollution.quantity,
         id: '2017',
         data: data1,
-        fillPatternFn: (_, __) => charts.FillPatternType.solid,
+        // fillPatternFn: (, _) => charts.FillPatternType.solid,
         fillColorFn: (Pollution pollution, _) =>
             charts.ColorUtil.fromDartColor(Color(0xff990099)),
       ),
@@ -87,7 +125,7 @@ class _HomePageState extends State<HomePage> {
         measureFn: (Pollution pollution, _) => pollution.quantity,
         id: '2018',
         data: data2,
-        fillPatternFn: (_, __) => charts.FillPatternType.solid,
+        // fillPatternFn: (, _) => charts.FillPatternType.solid,
         fillColorFn: (Pollution pollution, _) =>
             charts.ColorUtil.fromDartColor(Color(0xff109618)),
       ),
@@ -99,7 +137,7 @@ class _HomePageState extends State<HomePage> {
         measureFn: (Pollution pollution, _) => pollution.quantity,
         id: '2019',
         data: data3,
-        fillPatternFn: (_, __) => charts.FillPatternType.solid,
+        // fillPatternFn: (, _) => charts.FillPatternType.solid,
         fillColorFn: (Pollution pollution, _) =>
             charts.ColorUtil.fromDartColor(Color(0xffff9900)),
       ),
@@ -111,7 +149,7 @@ class _HomePageState extends State<HomePage> {
         measureFn: (Task task, _) => task.taskvalue,
         colorFn: (Task task, _) =>
             charts.ColorUtil.fromDartColor(task.colorval),
-        id: 'Air Pollution',
+        id: 'Propery',
         data: piedata,
         labelAccessorFn: (Task row, _) => '${row.taskvalue}',
       ),
@@ -120,7 +158,7 @@ class _HomePageState extends State<HomePage> {
     _seriesLineData.add(
       charts.Series(
         colorFn: (__, _) => charts.ColorUtil.fromDartColor(Color(0xff990099)),
-        id: 'Air Pollution',
+        id: 'Property',
         data: linesalesdata,
         domainFn: (Sales sales, _) => sales.yearval,
         measureFn: (Sales sales, _) => sales.salesval,
@@ -129,7 +167,7 @@ class _HomePageState extends State<HomePage> {
     _seriesLineData.add(
       charts.Series(
         colorFn: (__, _) => charts.ColorUtil.fromDartColor(Color(0xff109618)),
-        id: 'Air Pollution',
+        id: 'Property',
         data: linesalesdata1,
         domainFn: (Sales sales, _) => sales.yearval,
         measureFn: (Sales sales, _) => sales.salesval,
@@ -138,7 +176,7 @@ class _HomePageState extends State<HomePage> {
     _seriesLineData.add(
       charts.Series(
         colorFn: (__, _) => charts.ColorUtil.fromDartColor(Color(0xffff9900)),
-        id: 'Air Pollution',
+        id: 'Property',
         data: linesalesdata2,
         domainFn: (Sales sales, _) => sales.yearval,
         measureFn: (Sales sales, _) => sales.salesval,
@@ -174,18 +212,19 @@ class _HomePageState extends State<HomePage> {
                 Tab(icon: Icon(FontAwesomeIcons.chartLine)),
               ],
             ),
-            title: Text('Flutter Charts'),
+            title: Text('Graph'),
           ),
           body: TabBarView(
             children: [
               Padding(
                 padding: EdgeInsets.all(8.0),
                 child: Container(
+                  width: 50,
                   child: Center(
                     child: Column(
                       children: <Widget>[
                         Text(
-                          'SO₂ emissions, by world region (in million tonnes)',
+                          'Various property associated with the entity',
                           style: TextStyle(
                               fontSize: 24.0, fontWeight: FontWeight.bold),
                         ),
@@ -195,7 +234,7 @@ class _HomePageState extends State<HomePage> {
                             animate: true,
                             barGroupingType: charts.BarGroupingType.grouped,
                             //behaviors: [new charts.SeriesLegend()],
-                            animationDuration: Duration(seconds: 3),
+                            animationDuration: Duration(seconds: 5),
                           ),
                         ),
                       ],
@@ -210,9 +249,9 @@ class _HomePageState extends State<HomePage> {
                     child: Column(
                       children: <Widget>[
                         Text(
-                          'Time spent on daily tasks',
+                          'various property associated with the entity',
                           style: TextStyle(
-                              fontSize: 24.0, fontWeight: FontWeight.bold),
+                              fontSize: 20.0, fontWeight: FontWeight.bold),
                         ),
                         SizedBox(
                           height: 10.0,
@@ -220,7 +259,7 @@ class _HomePageState extends State<HomePage> {
                         Expanded(
                           child: charts.PieChart(_seriesPieData,
                               animate: true,
-                              animationDuration: Duration(seconds: 5),
+                              animationDuration: Duration(seconds: 3),
                               behaviors: [
                                 new charts.DatumLegend(
                                   outsideJustification:
@@ -256,7 +295,7 @@ class _HomePageState extends State<HomePage> {
                     child: Column(
                       children: <Widget>[
                         Text(
-                          'Sales for the first 5 years',
+                          'Frequency for various time of entity',
                           style: TextStyle(
                               fontSize: 24.0, fontWeight: FontWeight.bold),
                         ),
@@ -267,18 +306,18 @@ class _HomePageState extends State<HomePage> {
                               animate: true,
                               animationDuration: Duration(seconds: 5),
                               behaviors: [
-                                new charts.ChartTitle('Years',
+                                new charts.ChartTitle('Time(minute)',
                                     behaviorPosition:
                                         charts.BehaviorPosition.bottom,
                                     titleOutsideJustification: charts
                                         .OutsideJustification.middleDrawArea),
-                                new charts.ChartTitle('Sales',
+                                new charts.ChartTitle('Frequency',
                                     behaviorPosition:
                                         charts.BehaviorPosition.start,
                                     titleOutsideJustification: charts
                                         .OutsideJustification.middleDrawArea),
                                 new charts.ChartTitle(
-                                  'Departments',
+                                  'Entity',
                                   behaviorPosition: charts.BehaviorPosition.end,
                                   titleOutsideJustification: charts
                                       .OutsideJustification.middleDrawArea,
@@ -302,8 +341,9 @@ class Pollution {
   String place;
   int year;
   int quantity;
+  // final charts.Color barColor;
 
-  Pollution(this.year, this.place, this.quantity);
+  Pollution(this.year, this.place, this.quantity, {charts.Color barColor});
 }
 
 class Task {

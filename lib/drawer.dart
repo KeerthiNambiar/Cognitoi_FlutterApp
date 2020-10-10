@@ -1,8 +1,71 @@
-import 'package:cognito/graph.dart';
+import 'package:cognito/dashboard.dart';
 import 'package:flutter/material.dart';
+import 'package:dio/adapter.dart';
+import 'package:dio/dio.dart';
+import 'dart:io';
+
+import 'package:cognito/global.dart';
 
 class DrawerPage extends StatelessWidget {
   DrawerPage() : super();
+  handleLogin(BuildContext context) async {
+    try {
+      try {
+        Dio dio = new Dio();
+        (dio.httpClientAdapter as DefaultHttpClientAdapter).onHttpClientCreate =
+            (HttpClient client) {
+          client.badCertificateCallback =
+              (X509Certificate cert, String host, int port) => true;
+          return client;
+        };
+
+        Options options =
+            new Options(contentType: "application/json", headers: {
+          'Authorization': '$companyApikey $token $companyId $user',
+        });
+
+        final response = await dio.get(
+          "https://wadiacs1.cognitonetworks.com/cognito/entityweb/gatewayentities",
+          options: options,
+        );
+
+        print(response);
+        print(user);
+      } catch (e) {
+        print(e);
+      }
+    } on DioError catch (e) {
+      if (e.response.statusCode == 401) {
+        showDialog(
+          context: context,
+          builder: (BuildContext context) {
+            return AlertDialog(
+              backgroundColor: Colors.white70,
+              content: Text(
+                'Oops! Something went wrong',
+                style: TextStyle(
+                  color: Colors.black12,
+                ),
+              ),
+              actions: <Widget>[
+                new FlatButton(
+                  child: Text(
+                    "Ok",
+                    style: TextStyle(
+                      color: Colors.black12,
+                    ),
+                  ),
+                  onPressed: () {
+                    Navigator.of(context).pop();
+                  },
+                ),
+              ],
+            );
+          },
+        );
+      }
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -37,9 +100,10 @@ class DrawerPage extends StatelessWidget {
               ListTile(
                 title: Text('Dashboard'),
                 onTap: () {
+                  this.handleLogin(context);
                   Navigator.push(
                     context,
-                    MaterialPageRoute(builder: (context) => HomePage()),
+                    MaterialPageRoute(builder: (context) => DashboardPage()),
                   );
                 },
               ),
