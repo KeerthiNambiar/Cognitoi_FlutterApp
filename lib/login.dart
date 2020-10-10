@@ -1,5 +1,6 @@
 // import 'package:html';
 
+import 'dart:convert';
 import 'dart:io';
 import 'package:dio/adapter.dart';
 import 'package:flutter/material.dart';
@@ -83,6 +84,80 @@ class LoginPageState extends State<LoginPage>
         print(response.statusCode);
         print(response.statusMessage);
         print(response.data);
+        print("TRIAL PRINT GROUP NAME");
+        print(groupName);
+      } catch (e) {
+        print(e);
+      }
+    } on DioError catch (e) {
+      this.setState(() {
+        this.isApiCalled = false;
+      });
+      if (e.response.statusCode == 401) {
+        showDialog(
+          context: context,
+          builder: (BuildContext context) {
+            return AlertDialog(
+              backgroundColor: Colors.white70,
+              content: Text(
+                'Oops! Something went wrong. Perhaps check your username and password',
+                style: TextStyle(
+                  color: Colors.black12,
+                ),
+              ),
+              actions: <Widget>[
+                new FlatButton(
+                  child: Text(
+                    "Ok",
+                    style: TextStyle(
+                      color: Colors.black12,
+                    ),
+                  ),
+                  onPressed: () {
+                    Navigator.of(context).pop();
+                  },
+                ),
+              ],
+            );
+          },
+        );
+      }
+    }
+
+    try {
+      this.setState(() {
+        this.isApiCalled = true;
+      });
+
+      try {
+        Dio dio = new Dio();
+        (dio.httpClientAdapter as DefaultHttpClientAdapter).onHttpClientCreate =
+            (HttpClient client) {
+          client.badCertificateCallback =
+              (X509Certificate cert, String host, int port) => true;
+          return client;
+        };
+        Options options = new Options(
+            contentType: "application/json",
+            headers: {
+              'Authorization':
+                  'K9MkyEo5fM0YracivwW3 5kg-e64d32010f956060efe9 81 100'
+            });
+
+        final response1 = await dio.get(
+          "https://wadiacs1.cognitonetworks.com/cognito/entityweb/gatewayentities",
+          options: options,
+        );
+
+        locationname = json.encode(locationname);
+        locationid = json.encode(locationid);
+        gateway = json.encode(gateway);
+        locations = json.encode(locations);
+
+        print(response1.statusCode);
+        print(response1.statusMessage);
+        print(response1.data);
+        print("HELLO DEFAULT");
       } catch (e) {
         print(e);
       }

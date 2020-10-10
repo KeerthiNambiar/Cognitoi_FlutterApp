@@ -5,3 +5,7 @@ var groupName = "";
 var companyApikey = "";
 var token = "";
 var user = "";
+var locationname = "";
+var locationid = "";
+var gateway = "";
+var locations = "";
