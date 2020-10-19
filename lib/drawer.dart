@@ -1,4 +1,5 @@
 import 'package:cognito/dashboard.dart';
+import 'package:cognito/entity.dart';
 import 'package:flutter/material.dart';
 import 'package:dio/adapter.dart';
 import 'package:dio/dio.dart';
@@ -110,7 +111,12 @@ class DrawerPage extends StatelessWidget {
               ListTile(
                 title: Text('IOT Networks'),
                 onTap: () {
-                  Navigator.pop(context);
+                  // Navigator.pop(context);
+                  this.handleLogin(context);
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(builder: (context) => EntityPage()),
+                  );
                 },
               ),
               ListTile(
