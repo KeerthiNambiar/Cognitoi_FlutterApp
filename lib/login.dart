@@ -65,8 +65,10 @@ class LoginPageState extends State<LoginPage>
         final response = await dio.post(
           'https://wadiacs1.cognitonetworks.com/cognito/gettoken',
           data: new FormData.fromMap({
-            "username": username,
-            "password": password,
+            "username": "richam@test.com",
+            "password": "eqAJ0aGe3bIVQEl0",
+            //  "username": username,
+            // "password": password,
           }),
         );
         userName = response.data["userName"];

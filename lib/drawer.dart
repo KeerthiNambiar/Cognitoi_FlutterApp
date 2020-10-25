@@ -9,6 +9,28 @@ import 'package:cognito/global.dart';
 
 class DrawerPage extends StatelessWidget {
   DrawerPage() : super();
+
+  List<Map<String, String>> gates = [];
+  getGateway(var gateways, var locationId) {
+    for (var gateway in gateways) {
+      gates.add({
+        "gatewayId": gateway["aGatewayId"].toString(),
+        "locationId": locationId.toString()
+      });
+    }
+  }
+
+  getLocation(var locations) {
+    if (locations["gateway"].isEmpty) {
+      if (locations["locations"] == null) return;
+      for (var location in locations["locations"]) {
+        getLocation(location);
+      }
+    } else {
+      getGateway(locations["gateway"], locations["locationid"]);
+    }
+  }
+
   handleLogin(BuildContext context) async {
     try {
       try {
@@ -26,12 +48,33 @@ class DrawerPage extends StatelessWidget {
         });
 
         final response = await dio.get(
-          "https://wadiacs1.cognitonetworks.com/cognito/entityweb/gatewayentities",
-          options: options,
-        );
+            "https://wadiacs1.cognitonetworks.com/cognito/entityweb/gatewayentities",
+            options: options);
+        for (int i = 0; i < response.data.length; i++) {
+          getLocation(response.data[i]);
+        }
+        // print(gates);
 
-        print(response);
-        print(user);
+        for (int i = 0; i < gates.length; i++) {
+          final response1 = await dio.get(
+              "https://wadiacs1.cognitonetworks.com/cognito/entityweb/entitygridlistofaLocation",
+              options: options,
+              queryParameters: {
+                "location_id": gates[i]["locationId"],
+                "gateway_id": gates[i]["gatewayId"]
+              });
+
+          for (int j = 0; j < response1.data.length; j++) {
+            // print(response1.data[j]["aEntityId"]);
+            final response2 = await dio.get(
+                "https://wadiacs1.cognitonetworks.com/cognito/entityweb/datastreamspidergraph/" +
+                    response1.data[j]["aEntityId"].toString(),
+                options: options);
+            print(response1.data[j]["entityName"]);
+            print(response2.data[0]["EntityType"]);
+            // print("");
+          }
+        }
       } catch (e) {
         print(e);
       }
@@ -115,7 +158,7 @@ class DrawerPage extends StatelessWidget {
                   this.handleLogin(context);
                   Navigator.push(
                     context,
-                    MaterialPageRoute(builder: (context) => EntityPage()),
+                    MaterialPageRoute(builder: (context) => Entity()),
                   );
                 },
               ),
