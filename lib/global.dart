@@ -5,6 +5,7 @@ var groupName = "";
 var companyApikey = "";
 var token = "";
 int user = -1;
+var responseArray = [];
 // var locationname = "";
 // var locationid = "";
 // var gateway = "";

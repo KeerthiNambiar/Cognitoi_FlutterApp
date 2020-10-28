@@ -65,16 +65,17 @@ class DrawerPage extends StatelessWidget {
               });
 
           for (int j = 0; j < response1.data.length; j++) {
-            // print(response1.data[j]["aEntityId"]);
             final response2 = await dio.get(
                 "https://wadiacs1.cognitonetworks.com/cognito/entityweb/datastreamspidergraph/" +
                     response1.data[j]["aEntityId"].toString(),
                 options: options);
             print(response1.data[j]["entityName"]);
             print(response2.data[0]["EntityType"]);
-            // print("");
+            // responseArray.add(response1.data[j]["entityName"]);
+            // responseArray.removeRange(6, responseArray.length);
           }
         }
+        print(responseArray);
       } catch (e) {
         print(e);
       }

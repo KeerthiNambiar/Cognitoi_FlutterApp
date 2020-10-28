@@ -1,6 +1,7 @@
 import 'package:cognito/graph.dart';
 
 import 'package:flutter/material.dart';
+import 'package:cognito/global.dart';
 
 void main() => runApp(new Dashboard());
 
@@ -19,6 +20,47 @@ class DashboardPage extends StatefulWidget {
 }
 
 class DashboardPageState extends State<DashboardPage> {
+  DashboardPageState() {
+    displayCard();
+  }
+
+  List<Widget> cardList = [];
+
+  @override
+  void initState() {
+    super.initState();
+  }
+
+  @override
+  void dispose() {
+    super.dispose();
+  }
+
+  displayCard() {
+    for (var i = 0; i < responseArray.length; i++) {
+      this.cardList.add(
+            Card(
+              color: Colors.blueAccent,
+              child: Container(
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(12),
+                ),
+                height: MediaQuery.of(context).size.height / 2.5,
+                child: Padding(
+                  padding: const EdgeInsets.all(10.0),
+                  child: Text(
+                    responseArray.elementAt(i),
+                    style: TextStyle(color: Colors.black.withOpacity(0.6)),
+                  ),
+                ),
+              ),
+              elevation: 5,
+              margin: EdgeInsets.all(20),
+            ),
+          );
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return Padding(
@@ -29,23 +71,28 @@ class DashboardPageState extends State<DashboardPage> {
           fit: StackFit.expand,
           children: <Widget>[
             Container(
-              margin: const EdgeInsets.only(top: 20),
-              child: new Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: <Widget>[
-                  Padding(
-                      padding: const EdgeInsets.only(bottom: 12.0),
-                      child: RaisedButton(
-                          textColor: Colors.white,
-                          color: Colors.green[400],
-                          child: Text("Show Data"),
-                          onPressed: () => {
-                                Navigator.push(
-                                  context,
-                                  MaterialPageRoute(
-                                      builder: (context) => HomePage()),
-                                )
-                              })),
+              margin: const EdgeInsets.only(top: 0),
+              child: Row(
+                children: [
+                  new Column(
+                    children: cardList,
+
+                    // mainAxisAlignment: MainAxisAlignment.center,
+                    // children: <Widget>[
+                    //   this.displayCard(),
+                    //   // child: RaisedButton(
+                    //   //     textColor: Colors.white,
+                    //   //     color: Colors.green[400],
+                    //   //     child: Text(responseArray.elementAt(0)),
+                    //   //     onPressed: () => {
+                    //   //           Navigator.push(
+                    //   //             context,
+                    //   //             MaterialPageRoute(
+                    //   //                 builder: (context) => HomePage()),
+                    //   //           )
+                    //   //         })),
+                    // ],
+                  ),
                 ],
               ),
             )
