@@ -45,7 +45,7 @@ class DashboardPageState extends State<DashboardPage> {
                 decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(12),
                 ),
-                height: MediaQuery.of(context).size.height / 2.5,
+                // height: MediaQuery.of(context).size.height / 2.5,
                 child: Padding(
                   padding: const EdgeInsets.all(10.0),
                   child: Text(

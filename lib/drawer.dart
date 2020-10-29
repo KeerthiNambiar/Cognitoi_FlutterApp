@@ -48,7 +48,7 @@ class DrawerPage extends StatelessWidget {
         });
 
         final response = await dio.get(
-            "https://wadiacs1.cognitonetworks.com/cognito/entityweb/gatewayentities",
+            "https://wadiacsi1.cognitonetworks.com/cognito/entityweb/gatewayentities",
             options: options);
         for (int i = 0; i < response.data.length; i++) {
           getLocation(response.data[i]);
@@ -57,7 +57,7 @@ class DrawerPage extends StatelessWidget {
 
         for (int i = 0; i < gates.length; i++) {
           final response1 = await dio.get(
-              "https://wadiacs1.cognitonetworks.com/cognito/entityweb/entitygridlistofaLocation",
+              "https://wadiacsi1.cognitonetworks.com/cognito/entityweb/entitygridlistofaLocation",
               options: options,
               queryParameters: {
                 "location_id": gates[i]["locationId"],
@@ -66,13 +66,13 @@ class DrawerPage extends StatelessWidget {
 
           for (int j = 0; j < response1.data.length; j++) {
             final response2 = await dio.get(
-                "https://wadiacs1.cognitonetworks.com/cognito/entityweb/datastreamspidergraph/" +
+                "https://wadiacsi1.cognitonetworks.com/cognito/entityweb/datastreamspidergraph/" +
                     response1.data[j]["aEntityId"].toString(),
                 options: options);
             print(response1.data[j]["entityName"]);
             print(response2.data[0]["EntityType"]);
             // responseArray.add(response1.data[j]["entityName"]);
-            // responseArray.removeRange(6, responseArray.length);
+            // responseArray.removeRange(0, responseArray.length);
           }
         }
         print(responseArray);
