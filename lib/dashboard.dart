@@ -36,26 +36,67 @@ class DashboardPageState extends State<DashboardPage> {
     super.dispose();
   }
 
+//  responseArray1.elementAt(i),
   displayCard() {
-    for (var i = 0; i < responseArray.length; i++) {
+    for (var i = 0; i < 2; i++) {
       this.cardList.add(
-            Card(
-              color: Colors.blueAccent,
-              child: Container(
-                decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(12),
-                ),
-                // height: MediaQuery.of(context).size.height / 2.5,
-                child: Padding(
-                  padding: const EdgeInsets.all(10.0),
-                  child: Text(
-                    responseArray.elementAt(i),
-                    style: TextStyle(color: Colors.black.withOpacity(0.6)),
+            Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: [
+                Card(
+                  color: Colors.black12,
+                  child: SizedBox(
+                    width: 334,
+                    height: 120,
+                    child: Container(
+                      padding: EdgeInsets.symmetric(horizontal: 12),
+                      child: Column(
+                        mainAxisSize: MainAxisSize.max,
+                        mainAxisAlignment: MainAxisAlignment.start,
+                        children: [
+                          Container(
+                            // alignment: Alignment.topLeft,
+                            padding: EdgeInsets.all(8),
+                            child: Text(
+                              responseArray1.elementAt(i),
+                              style: TextStyle(
+                                // color: _theme.colorScheme.onSurface,
+                                fontSize: 14,
+                              ),
+                            ),
+                          ),
+                          Container(
+                            padding: EdgeInsets.all(8),
+                            child: Text(
+                              responseArray.elementAt(i),
+                              style: TextStyle(
+                                // color: _theme.colorScheme.onSurface,
+                                fontSize: 14,
+                              ),
+                            ),
+                          ),
+                          Container(
+                              child: RaisedButton(
+                                  textColor: Colors.white,
+                                  color: Colors.black12,
+                                  child: Text("Show Data"),
+                                  shape: RoundedRectangleBorder(
+                                      borderRadius: BorderRadius.circular(18.0),
+                                      side: BorderSide(color: Colors.black)),
+                                  onPressed: () => {
+                                        // Navigator.push(
+                                        //   context,
+                                        //   MaterialPageRoute(
+                                        //       builder: (context) => HomePage()),
+                                        // )
+                                      })),
+                        ],
+                      ),
+                    ),
                   ),
                 ),
-              ),
-              elevation: 5,
-              margin: EdgeInsets.all(20),
+              ],
             ),
           );
     }
@@ -67,7 +108,7 @@ class DashboardPageState extends State<DashboardPage> {
       padding: const EdgeInsets.all(8.0),
       child: new Scaffold(
         backgroundColor: Colors.white,
-        body: new Stack(
+        body: Stack(
           fit: StackFit.expand,
           children: <Widget>[
             Container(

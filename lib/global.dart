@@ -6,6 +6,7 @@ var companyApikey = "";
 var token = "";
 int user = -1;
 var responseArray = [];
+var responseArray1 = [];
 // var locationname = "";
 // var locationid = "";
 // var gateway = "";

@@ -30,6 +30,28 @@ class LoginPageState extends State<LoginPage>
   bool isApiCalled = false;
 
   TextEditingController usernameController, passwordController;
+
+  List<Map<String, String>> gates = [];
+  getGateway(var gateways, var locationId) {
+    for (var gateway in gateways) {
+      gates.add({
+        "gatewayId": gateway["aGatewayId"].toString(),
+        "locationId": locationId.toString()
+      });
+    }
+  }
+
+  getLocation(var locations) {
+    if (locations["gateway"].isEmpty) {
+      if (locations["locations"] == null) return;
+      for (var location in locations["locations"]) {
+        getLocation(location);
+      }
+    } else {
+      getGateway(locations["gateway"], locations["locationid"]);
+    }
+  }
+
   @override
   void initState() {
     usernameController = TextEditingController();
@@ -62,7 +84,7 @@ class LoginPageState extends State<LoginPage>
           return client;
         };
 
-        final response = await dio.post(
+        final res = await dio.post(
           'https://wadiacsi1.cognitonetworks.com/cognito/gettoken',
           data: new FormData.fromMap({
             "username": "richam@test.com",
@@ -71,16 +93,55 @@ class LoginPageState extends State<LoginPage>
             // "password": password,
           }),
         );
-        userName = response.data["userName"];
-        companyId = response.data["companyId"];
-        groupName = response.data["group_name"];
-        companyApikey = response.data["companyApikey"];
-        token = response.data["token"];
-        isLoggedIn = response.data["success"];
-        user = response.data["user"];
-        print(response.statusCode);
-        print(response.statusMessage);
-        print(response.data);
+        userName = res.data["userName"];
+        companyId = res.data["companyId"];
+        groupName = res.data["group_name"];
+        companyApikey = res.data["companyApikey"];
+        token = res.data["token"];
+        isLoggedIn = res.data["success"];
+        user = res.data["user"];
+        print(res.statusCode);
+        print(res.statusMessage);
+        print(res.data);
+        Options options =
+            new Options(contentType: "application/json", headers: {
+          'Authorization': '$companyApikey $token $companyId $user',
+        });
+
+        final response = await dio.get(
+            "https://wadiacsi1.cognitonetworks.com/cognito/entityweb/gatewayentities",
+            options: options);
+        for (int i = 0; i < response.data.length; i++) {
+          getLocation(response.data[i]);
+        }
+        // print(gates);
+
+        for (int i = 0; i < gates.length; i++) {
+          final response1 = await dio.get(
+              "https://wadiacsi1.cognitonetworks.com/cognito/entityweb/entitygridlistofaLocation",
+              options: options,
+              queryParameters: {
+                "location_id": gates[i]["locationId"],
+                "gateway_id": gates[i]["gatewayId"]
+              });
+
+          for (int j = 0; j < response1.data.length; j++) {
+            final response2 = await dio.get(
+                "https://wadiacsi1.cognitonetworks.com/cognito/entityweb/datastreamspidergraph/" +
+                    response1.data[j]["aEntityId"].toString(),
+                options: options);
+            print(response1.data[j]["entityName"]);
+            print(response2.data[0]["EntityType"]);
+            if (responseArray.contains(response1.data[j]["entityName"]) != true)
+              responseArray.add(response1.data[j]["entityName"]);
+            if (responseArray1.contains(response2.data[0]["EntityType"]) !=
+                true) responseArray1.add(response2.data[0]["EntityType"]);
+            // responseArray1.add(response2.data[0]["EntityType"]);
+            // responseArray.removeRange(0, responseArray.length);
+          }
+        }
+        print(responseArray);
+        print(responseArray1);
       } catch (e) {
         print(e);
       }
@@ -250,8 +311,8 @@ class LoginPageState extends State<LoginPage>
                                   color: Colors.green[400],
                                   child: Text("SIGN IN"),
                                   onPressed: () => {
-                                    this.handleLogin(
-                                        context), //function for API call
+                                    this.handleLogin(context),
+                                    //function for API call
                                     if (isLoggedIn)
                                       {
                                         Navigator.push(
