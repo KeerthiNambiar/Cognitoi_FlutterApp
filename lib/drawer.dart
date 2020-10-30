@@ -11,6 +11,8 @@ class DrawerPage extends StatelessWidget {
   DrawerPage() : super();
 
   List<Map<String, String>> gates = [];
+  //var entityName;
+  //var entityType;
   getGateway(var gateways, var locationId) {
     for (var gateway in gateways) {
       gates.add({
@@ -69,13 +71,20 @@ class DrawerPage extends StatelessWidget {
                 "https://wadiacsi1.cognitonetworks.com/cognito/entityweb/datastreamspidergraph/" +
                     response1.data[j]["aEntityId"].toString(),
                 options: options);
+
+            print("\nNAME :");
+            // entityName = response1.data[j]["entityName"];
             print(response1.data[j]["entityName"]);
-            print(response2.data[0]["EntityType"]);
-            // responseArray.add(response1.data[j]["entityName"]);
+            print("\nTYPE :");
+            // // entityType = response2.data[j]["EntityType"];
+            print(response2.data[j]["EntityType"]);
+            //  responseArray.add(response1.data[j]["entityName"]);
+            //responseArray1.add(response2.data[j]["EntityType"]);
             // responseArray.removeRange(0, responseArray.length);
+            // responseArray1.removeRange(0, responseArray.length);
           }
         }
-        print(responseArray);
+        // print(responseArray);
       } catch (e) {
         print(e);
       }

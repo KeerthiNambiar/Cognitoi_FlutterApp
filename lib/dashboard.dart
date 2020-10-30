@@ -37,7 +37,7 @@ class DashboardPageState extends State<DashboardPage> {
   }
 
   displayCard() {
-    for (var i = 0; i < responseArray.length; i++) {
+    for (var i = 0; i < responseArray1.length; i++) {
       this.cardList.add(
             Card(
               color: Colors.blueAccent,
@@ -45,17 +45,22 @@ class DashboardPageState extends State<DashboardPage> {
                 decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(12),
                 ),
-                // height: MediaQuery.of(context).size.height / 2.5,
                 child: Padding(
-                  padding: const EdgeInsets.all(10.0),
-                  child: Text(
-                    responseArray.elementAt(i),
-                    style: TextStyle(color: Colors.black.withOpacity(0.6)),
+                  padding: const EdgeInsets.all(8.0),
+                  child: Column(
+                    children: [
+                      Text(
+                        responseArray.elementAt(i),
+                        style: TextStyle(color: Colors.black.withOpacity(0.6)),
+                      ),
+                      Text(responseArray1.elementAt(i),
+                          style: TextStyle(
+                            color: Colors.black.withOpacity(0.6),
+                          )),
+                    ],
                   ),
                 ),
               ),
-              elevation: 5,
-              margin: EdgeInsets.all(20),
             ),
           );
     }
