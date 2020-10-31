@@ -10,10 +10,7 @@ class DrawerPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: Colors.grey[700],
-      ),
-      body: Center(
-        child: Text('Dashboard!'),
+        backgroundColor: Colors.indigo[500],
       ),
       drawer: Drawer(
         child: Container(
@@ -22,7 +19,7 @@ class DrawerPage extends StatelessWidget {
             padding: EdgeInsets.zero,
             children: <Widget>[
               Container(
-                color: Colors.grey[700],
+                color: Colors.indigo[500],
                 child: DrawerHeader(
                   child: Text(
                     'Cognito \nNetworks',

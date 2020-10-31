@@ -32,7 +32,7 @@ dependencies:
     font_awesome_flutter: ^8.2.0
     charts_flutter: ^0.6.0
     flutter_staggered_grid_view:
-    
+
 dev_dependencies:
     flutter_test:
         sdk: flutter
@@ -51,6 +51,7 @@ flutter:
     assets:
         - assets/abc.jpeg
         - assets/coglogo.jpg
+        - assets/bg.png
     #   - images/a_dot_ham.jpeg
 
     # An image asset can refer to one or more resolution-specific "variants", see
