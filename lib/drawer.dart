@@ -29,7 +29,6 @@ class DrawerPage extends StatelessWidget {
                         image: AssetImage('assets/coglogo.jpg'),
                         alignment: Alignment.center,
                         scale: 12),
-                    // color: Colors.grey[700],
                   ),
                 ),
               ),
@@ -38,7 +37,8 @@ class DrawerPage extends StatelessWidget {
                 onTap: () {
                   Navigator.push(
                     context,
-                    MaterialPageRoute(builder: (context) => DashboardPage()),
+                    MaterialPageRoute(
+                        builder: (context) => DashboardPage(context)),
                   );
                 },
               ),

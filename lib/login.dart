@@ -183,6 +183,7 @@ class LoginPageState extends State<LoginPage>
 
   @override
   Widget build(BuildContext context) {
+    print("--------------------");
     return Padding(
       padding: const EdgeInsets.all(8.0),
       child: new Scaffold(

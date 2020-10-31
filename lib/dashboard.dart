@@ -3,32 +3,23 @@ import 'package:cognito/graph.dart';
 import 'package:flutter/material.dart';
 import 'package:cognito/global.dart';
 
-void main() => runApp(new Dashboard());
-
-class Dashboard extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    return MaterialApp(
-      home: DashboardPage(),
-    );
-  }
-}
-
 class DashboardPage extends StatefulWidget {
+  BuildContext context;
+  DashboardPage(this.context);
+
   @override
-  State createState() => new DashboardPageState();
+  State createState() => new DashboardPageState(this.context);
 }
 
 class DashboardPageState extends State<DashboardPage> {
-  DashboardPageState() {
-    displayCard();
-  }
-
   List<Widget> cardList = [];
+  BuildContext context;
+  DashboardPageState(this.context);
 
   @override
   void initState() {
     super.initState();
+    displayCard();
   }
 
   @override
@@ -38,24 +29,23 @@ class DashboardPageState extends State<DashboardPage> {
 
 //  responseArray1.elementAt(i),
   displayCard() {
-    for (var i = 0; i < 3; i++) {
+    for (var i = 0; i < responseArray.length; i++) {
       this.cardList.add(
             Column(
               mainAxisAlignment: MainAxisAlignment.center,
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
                 Padding(
-                  padding:
-                      const EdgeInsets.only(top: 20.0, left: 20.0, right: 20.0),
+                  padding: const EdgeInsets.only(top: 4.0),
                   child: Card(
                     shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(10.0),
                         side: BorderSide(color: Colors.white)),
                     // Border.all(color: Colors.white)
 
-                    color: Colors.indigo[500],
+                    color: Colors.indigo[100],
                     child: SizedBox(
-                      width: 290,
+                      width: MediaQuery.of(this.context).size.width * 0.85,
                       height: 140,
                       child: Container(
                         padding: EdgeInsets.symmetric(horizontal: 12),
@@ -71,7 +61,7 @@ class DashboardPageState extends State<DashboardPage> {
                                 child: Text(
                                   "Entity Name: " + responseArray1.elementAt(i),
                                   style: TextStyle(
-                                    color: Colors.white,
+                                    color: Colors.black,
                                     fontSize: 16,
                                   ),
                                 ),
@@ -82,7 +72,7 @@ class DashboardPageState extends State<DashboardPage> {
                               child: Text(
                                 "Entity Type: " + responseArray.elementAt(i),
                                 style: TextStyle(
-                                  color: Colors.white,
+                                  color: Colors.black,
                                   fontSize: 16,
                                 ),
                               ),
@@ -123,21 +113,18 @@ class DashboardPageState extends State<DashboardPage> {
     return Padding(
       padding: const EdgeInsets.all(8.0),
       child: new Scaffold(
-        // backgroundColor: Colors.white,
-        body: Stack(
-          fit: StackFit.expand,
-          children: <Widget>[
-            Container(
-              color: Colors.white,
-              margin: const EdgeInsets.only(top: 0),
-              child: Row(
-                children: [
-                  new Column(
-                    children: cardList,
-                  ),
-                ],
-              ),
-            )
+        appBar: AppBar(
+          title: Text("Entities"),
+          backgroundColor: Colors.indigo[500],
+        ),
+        backgroundColor: Colors.indigo[600],
+        body: Row(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            SingleChildScrollView(
+                child: new Column(
+              children: cardList,
+            ))
           ],
         ),
       ),

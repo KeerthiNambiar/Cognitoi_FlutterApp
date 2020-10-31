@@ -8,9 +8,6 @@ class CognitoApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return new MaterialApp(
       title: 'Cognito App',
-      theme: new ThemeData(
-        primarySwatch: Colors.red,
-      ),
       routes: routes,
     );
   }
