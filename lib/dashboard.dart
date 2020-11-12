@@ -1,3 +1,4 @@
+import 'package:cognito/choice.dart';
 import 'package:cognito/graph.dart';
 
 import 'package:flutter/material.dart';
@@ -29,7 +30,7 @@ class DashboardPageState extends State<DashboardPage> {
 
 //  responseArray1.elementAt(i),
   displayCard() {
-    for (var i = 0; i < responseArray.length; i++) {
+    for (var i = 0; i < responseArray1.length; i++) {
       this.cardList.add(
             Column(
               mainAxisAlignment: MainAxisAlignment.center,
@@ -92,7 +93,8 @@ class DashboardPageState extends State<DashboardPage> {
                                         Navigator.push(
                                           context,
                                           MaterialPageRoute(
-                                              builder: (context) => HomePage()),
+                                              builder: (context) =>
+                                                  ChoicePage()),
                                         )
                                       }),
                             )),

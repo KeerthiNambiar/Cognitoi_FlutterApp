@@ -130,8 +130,36 @@ class LoginPageState extends State<LoginPage>
                 "https://wadiacsi1.cognitonetworks.com/cognito/entityweb/datastreamspidergraph/" +
                     response1.data[j]["aEntityId"].toString(),
                 options: options);
-            print(response1.data[j]["entityName"]);
-            print(response2.data[0]["EntityType"]);
+
+            // print(response1.data[j]["entityName"]);
+            for (int k = 0; k < response2.data[0]["datastreams"].length; k++) {
+              print(
+                  response1.data[j]["aEntityId"].toString() + "-------------");
+              print(response2.data[0]["datastreams"][k]["name"]);
+              var data = response2.data[0]["datastreams"][k]["timestamp"];
+              data = (data.toString().replaceAll("T", " "));
+              data = (data.toString().replaceAll("Z", ""));
+              var now =
+                  DateTime.now().subtract(new Duration(days: 1)).toString();
+              var end = now.replaceRange(19, now.length, "");
+              print(end);
+              // print(data);
+              final response3 = await dio.get(
+                  "https://wadiacsi1.cognitonetworks.com/cognito/entityweb/datastreamTimeGraph/2091/?entity_id" +
+                      response1.data[j]["aEntityId"].toString(),
+                  options: options,
+                  queryParameters: {
+                    "entity_id": response1.data[j]["aEntityId"].toString(),
+                    "name": response2.data[0]["datastreams"][k]["name"],
+                    "start_date": '2020-11-10 17:50:25',
+                    // data,
+                    "end_date": end,
+                  });
+
+              print(response3);
+              print("\n========\n");
+            }
+
             if (responseArray.contains(response1.data[j]["entityName"]) != true)
               responseArray.add(response1.data[j]["entityName"]);
             if (responseArray1.contains(response2.data[0]["EntityType"]) !=
@@ -140,8 +168,10 @@ class LoginPageState extends State<LoginPage>
             // responseArray.removeRange(0, responseArray.length);
           }
         }
-        print(responseArray);
-        print(responseArray1);
+        // var now = DateTime.now().toString();
+        // now = now.replaceRange(19, now.length, " ");
+        // // print(now);
+
       } catch (e) {
         print(e);
       }

@@ -36,7 +36,7 @@ class EntityState extends State<Entity> {
         });
 
         final response = await dio.get(
-          "https://wadiacs1.cognitonetworks.com/cognito/entitycore/list/345",
+          "https://wadiacsi1.cognitonetworks.com/cognito/entitycore/list/345",
           options: options,
         );
 
