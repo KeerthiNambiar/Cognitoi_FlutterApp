@@ -1,7 +1,9 @@
 // import 'dart:html';
 
+import 'package:charts_flutter/flutter.dart';
 import 'package:cognito/dashboard.dart';
 import 'package:cognito/entity.dart';
+import 'package:cognito/global.dart';
 import 'package:flutter/material.dart';
 
 class DrawerPage extends StatelessWidget {
@@ -21,15 +23,32 @@ class DrawerPage extends StatelessWidget {
               Container(
                 color: Colors.indigo[500],
                 child: DrawerHeader(
-                  child: Text(
-                    'Cognito \nNetworks',
+                  child: Column(
+                    mainAxisSize: MainAxisSize.min,
+                    children: <Widget>[
+                      Icon(
+                        Icons.portrait,
+                        color: Colors.black,
+                        size: 90.0,
+                      ),
+                      Text(
+                        '$userName',
+                        style: TextStyle(fontStyle: FontStyle.italic),
+                        textScaleFactor: 2,
+                      )
+                    ],
                   ),
-                  decoration: BoxDecoration(
-                    image: DecorationImage(
-                        image: AssetImage('assets/coglogo.jpg'),
-                        alignment: Alignment.center,
-                        scale: 12),
-                  ),
+                  // decoration: BoxDecoration(
+                  //   image: DecorationImage(
+                  //       image: AssetImage('assets/prof.jpg'),
+                  //       alignment: Alignment.center,
+                  //       scale: 5),
+                  // ),
+                  // child: Text(
+                  //   '$userName',
+                  //   textAlign: TextAlign.center,
+                  //   textScaleFactor: 1,
+                  // ),
                 ),
               ),
               ListTile(
